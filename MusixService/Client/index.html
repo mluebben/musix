@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Musix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+
+</head>
+<body>
+
+    <h1>Musix</h1>
+    <button id="btn1">Test1</button>
+    <button id="btn2">Test2</button>
+
+    <textarea id="out">
+        Ausgabe
+    </textarea>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script>
+
+ $(document).ready(function () {
+
+    $("#btn1").click(function() {
+        console.log("#btn1 clicked");
+        $.ajax({
+            "url": "/jsonrpc",
+            "method": "post",
+		    "contentType": "application/json",
+            "data": JSON.stringify({
+                "id": "abc",
+                "jsonrpc": "2.0",
+                "method": "GetArtistDelta",
+                "params": {"since": "2014-03-05T00:01:30"}
+
+            }),
+            "dataType": "json",
+            "success": function(data, textStatus, jqXHR) {
+                console.log("success");
+                console.log(data);
+                //callback(data);
+            },
+            "error": function(jqXHR, textStatus, errorThrown) {
+                console.log("error");
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+    $("#btn2").click(function () {
+        console.log("#btn2 clicked");
+        $.ajax({
+            "url": "/jsonrpc",
+            "method": "post",
+            "contentType": "application/json",
+            "data": JSON.stringify({
+                "id": "abc",
+                "jsonrpc": "2.0",
+                "method": "Foo",
+                "params": { "since": "2014-03-05T00:01:30" }
+
+            }),
+            "dataType": "json",
+            "success": function (data, textStatus, jqXHR) {
+                console.log("success");
+                console.log(data);
+                //callback(data);
+            },
+            "error": function (jqXHR, textStatus, errorThrown) {
+                console.log("error");
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+
+
+});
+
+    </script>
+</body>
+</html>
